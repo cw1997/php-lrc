@@ -1,0 +1,14 @@
+{
+    "name": "changwei/php-lrc",
+    "description": "a php library for processing lrc file",
+    "type": "library",
+    "license": "Apache License 2.0",
+    "authors": [
+        {
+            "name": "changwei",
+            "email": "867597730@qq.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
