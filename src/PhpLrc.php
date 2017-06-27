@@ -3,6 +3,7 @@
 * @file phplrc.php
 * @description lrc歌词文件解析库
 * @author changwei <867597730@qq.com>
+* @website https://github.com/cw1997/php-lrc
 * @date 2017-06-27 00:30:49
 */
 
@@ -28,6 +29,10 @@ class PhpLrc
 	 */
 	const MSECOND = 1;
 
+	/**
+	 * 构造方法
+	 * @param string $filepath lrc歌词文件完整路径（可为url）
+	 */
 	function __construct($filepath)
 	{
 		if (empty($filepath)) {
@@ -39,6 +44,11 @@ class PhpLrc
 		}
 	}
 
+	/**
+	 * 获取获取歌词与时刻关联数组
+	 * @param  int $keyType 枚举类型，常量为PhpLrc::NORMAL或PhpLrc::MSECOND
+	 * @return array          时间歌词关联数组
+	 */
 	public function getArrayByLrc($keyType)
 	{
 		$ret = array();
@@ -61,6 +71,10 @@ class PhpLrc
 		return $ret;
 	}
 
+	/**
+	 * 压缩歌词
+	 * @return array 时间歌词关联数组
+	 */
 	public function compress()
 	{
 		$ret = array();
@@ -81,6 +95,10 @@ class PhpLrc
 		return $ret;
 	}
 
+	/**
+	 * 解压缩歌词
+	 * @return array 时间歌词关联数组
+	 */
 	public function decompress()
 	{
 		$ret = array();
@@ -102,6 +120,12 @@ class PhpLrc
 		return $ret;
 	}
 
+	/**
+	 * 保存歌词数组到文件
+	 * @param  array  $lrcArray 通过compress或者deconmpress方法生成的数组
+	 * @param  string $filepath lrc文件保存路径
+	 * @return int           lrc文件写入字节大小
+	 */
 	public static function storeToFile(array $lrcArray, $filepath)
 	{
 		$isCompress = self::_checkLrcArray($lrcArray);
@@ -125,11 +149,20 @@ class PhpLrc
 		return file_put_contents($filepath, $strContent);
 	}
 
+	/**
+	 * 通过文件路径获取歌词文件实际内容
+	 * @param  string $filepath 歌词文件完整路径
+	 * @return string           歌词文件实际内容]
+	 */
 	private function _getContentFromLrc($filepath)
 	{
 		return file_get_contents($filepath);
 	}
 
+	/**
+	 * 格式化lrc歌词文件内容
+	 * @return array 时间歌词关联数组
+	 */
 	private function _formatContent()
 	{
 		$pattern_all = "/((\[[0-2][0-4]:[0-5][0-9]\.[0-9][0-9]\])+)(.*)/i";
@@ -154,6 +187,11 @@ class PhpLrc
 		return false;
 	}
 
+	/**
+	 * 格式化歌词时间关联数组的键为毫秒
+	 * @param  string $raw_time 原始时间
+	 * @return int           毫秒数
+	 */
 	private function _formatRawTimeToMsec($raw_time)
 	{
 		$pattern = "/([0-2][0-4]):([0-5][0-9])\.([0-9][0-9])/i";
@@ -171,6 +209,11 @@ class PhpLrc
 		return $ret;
 	}
 
+	/**
+	 * 格式化歌词时间关联数组的键为原始时间格式
+	 * @param  int $msec_time 毫秒
+	 * @return string           原始时间
+	 */
 	private function _formatMsecTimeToRaw($msec_time)
 	{
 		$min = floor($msec_time / 1000 / 60);
