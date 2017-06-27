@@ -188,7 +188,7 @@ class PhpLrc
 	}
 
 	/**
-	 * 格式化歌词时间关联数组的键为毫秒
+	 * 格式化原始时间格式为毫秒
 	 * @param  string $raw_time 原始时间
 	 * @return int           毫秒数
 	 */
@@ -210,7 +210,7 @@ class PhpLrc
 	}
 
 	/**
-	 * 格式化歌词时间关联数组的键为原始时间格式
+	 * 格式化毫秒为原始时间格式
 	 * @param  int $msec_time 毫秒
 	 * @return string           原始时间
 	 */
@@ -228,6 +228,11 @@ class PhpLrc
 		return $ret;
 	}
 
+	/**
+	 * 格式化歌词时间关联数组的键为原始时间格式
+	 * @param  array  $arr 时间歌词关联数组
+	 * @return array      时间歌词关联数组
+	 */
 	private function _formatKeyToRawTime(array $arr)
 	{
 		$ret = array();
@@ -238,6 +243,11 @@ class PhpLrc
 		return $ret;
 	}
 
+	/**
+	 * 格式化歌词时间关联数组的键为毫秒
+	 * @param  array  $arr 时间歌词关联数组
+	 * @return array      时间歌词关联数组
+	 */
 	private function _formatKeyToMsecTime(array $arr)
 	{
 		$ret = array();
